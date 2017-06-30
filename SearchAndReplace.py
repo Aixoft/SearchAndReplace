@@ -1,16 +1,26 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
  
-from Tkinter import * 
+from Tkinter import *
+from tkFileDialog import *
+
 import os, sys
 
 if len(sys.argv) <> 3:
-	print "Syntax: "+sys.argv[0]+" <input file> <output file>"
-	sys.exit()
+	if len(sys.argv) == 1:
+		fileInName = askopenfilename(title="InputFile",filetypes=[('text files','.txt'),('all files','.*')])
+		fileOutName = asksaveasfile(title="OutputFile",mode='w')
+
+	else:
+		print "Syntax: "+sys.argv[0]+" [input file] [output file]"
+		sys.exit()
+else:
+	fileInName = sys.argv[1]
+	fileOutName = sys.argv[2]
 
 def moulinette():
-	fileOut = open(sys.argv[2],"a")
-	with open(sys.argv[1],"r") as fileIn:
+	fileOut = open(fileOutName,"a")
+	with open(fileInName,"r") as fileIn:
     		data=fileIn.read()
 
 	for index, item in enumerate(variables):
@@ -24,8 +34,8 @@ def moulinette():
 #Read file
 variables = []
 results = []
-print "Opening and reading: "+sys.argv[1]
-f =  open(sys.argv[1],"r")
+print "Opening and reading: "+fileInName
+f =  open(fileInName,"r")
 for line in f:
 	for word in line.split():
 		if word.startswith("$$"):
