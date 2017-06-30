@@ -54,7 +54,7 @@ for variable in range(len(variables)):
 
 
 #Bouton
-bouton=Button(mainWindow, text="Lancer", command=moulinette)
+bouton=Button(mainWindow, text="Launch", command=moulinette)
 
 #Main
 pMaster.add(pLabels)
