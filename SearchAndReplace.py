@@ -44,8 +44,9 @@ for line in f:
 				print word
 f.close()
 
-##GUI
+#GUI
 mainWindow = Tk()
+
 #Body
 pMaster = PanedWindow(mainWindow, orient=HORIZONTAL)
 
