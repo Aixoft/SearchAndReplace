@@ -4,6 +4,10 @@
 from Tkinter import * 
 import os, sys
 
+if len(sys.argv) <> 3:
+	print "Syntax: "+sys.argv[0]+" <input file> <output file>"
+	sys.exit()
+
 def moulinette():
 	fileOut = open(sys.argv[2],"a")
 	with open(sys.argv[1],"r") as fileIn:
@@ -15,7 +19,7 @@ def moulinette():
 	
 	fileIn.close()
 	fileOut.close()
-	fenetre.quit()
+	mainWindow.quit()
 
 #Read file
 variables = []
@@ -31,26 +35,26 @@ for line in f:
 f.close()
 
 ##GUI
-fenetre = Tk()
+mainWindow = Tk()
 #Body
-pMaster = PanedWindow(fenetre, orient=HORIZONTAL)
+pMaster = PanedWindow(mainWindow, orient=HORIZONTAL)
 
 #Labels
-pLabels = PanedWindow(fenetre, orient=VERTICAL)
+pLabels = PanedWindow(mainWindow, orient=VERTICAL)
 pLabels.pack(side=TOP, expand=Y, fill=BOTH, pady=2, padx=2)
 for variable in range(len(variables)):
 	pLabels.add(Label(pLabels, text=variables[variable].replace("$$","")))
 #Inputs
-pInputs = PanedWindow(fenetre, orient=VERTICAL)
+pInputs = PanedWindow(mainWindow, orient=VERTICAL)
 for variable in range(len(variables)):
 	result = StringVar()
 	results.append(result)
-	pInputs.add(Entry(fenetre,textvariable=result))
+	pInputs.add(Entry(mainWindow,textvariable=result))
 #DEBUG
 
 
 #Bouton
-bouton=Button(fenetre, text="Lancer", command=moulinette)
+bouton=Button(mainWindow, text="Lancer", command=moulinette)
 
 #Main
 pMaster.add(pLabels)
@@ -58,4 +62,4 @@ pMaster.add(pInputs)
 pMaster.add(bouton)
 pMaster.pack()
 
-fenetre.mainloop()
+mainWindow.mainloop()
