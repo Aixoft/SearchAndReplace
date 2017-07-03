@@ -57,30 +57,31 @@ f.close()
 mainWindow = Tk()
 
 #Body
-pMaster = PanedWindow(mainWindow, orient=HORIZONTAL)
+mainWindow.rowconfigure(len(variables), weight=1)
+mainWindow.columnconfigure(3, weight=1)
 
 #Labels
-pLabels = PanedWindow(mainWindow, orient=VERTICAL)
-pLabels.pack(side=TOP, expand=Y, fill=BOTH, pady=2, padx=2)
+i=0
 for variable in range(len(variables)):
-	pLabels.add(Label(pLabels, text=variables[variable].replace("$$","")))
+	myLabel = Label(mainWindow, width=20, anchor=CENTER, text=variables[variable].replace("$$",""))
+	myLabel.grid(row=i, column=0, sticky="nsew")
+	i+=1
 #Inputs
-pInputs = PanedWindow(mainWindow, orient=VERTICAL)
+i=0
 for variable in range(len(variables)):
 	result = StringVar()
 	results.append(result)
-	pInputs.add(Entry(mainWindow,textvariable=result))
+	myEntry = Entry(mainWindow, width=20, textvariable=result)
+	myEntry.grid(row=i, column=1, sticky="nsew")
+	i+=1
+
 #DEBUG
 
 
 #Bouton
 bouton=Button(mainWindow, text="Launch", command=convertFile)
+bouton.grid(row=0, column=2, rowspan=len(variables) ,sticky="nsew")
 
 #Main
-pMaster.add(pLabels)
-pMaster.add(pInputs)
-pMaster.add(bouton)
-pMaster.pack()
-
 mainWindow.mainloop()
 
