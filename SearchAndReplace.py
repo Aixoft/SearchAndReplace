@@ -4,6 +4,7 @@
 from Tkinter import *
 from tkFileDialog import *
 
+import re
 import os, sys
 
 if len(sys.argv) <> 3:
@@ -18,15 +19,18 @@ else:
 	fileInName = sys.argv[1]
 	fileOutName = sys.argv[2]
 
-def moulinette():
+def findBetween(s):
+	return re.findall ('\$\$(.*?)\$\$', s, re.MULTILINE)
+
+def convertFile():
 	fileOut = open(fileOutName,"a")
 	with open(fileInName,"r") as fileIn:
     		data=fileIn.read()
 
 	for index, item in enumerate(variables):
 		data=data.replace(variables[index],results[index].get())
+
 	fileOut.write(data)
-	
 	fileIn.close()
 	fileOut.close()
 	mainWindow.quit()
@@ -37,11 +41,16 @@ results = []
 print "Opening and reading: "+fileInName
 f =  open(fileInName,"r")
 for line in f:
-	for word in line.split():
-		if word.startswith("$$"):
-			if word.endswith("$$"):
-				variables.append(word)
-				print word
+	words = findBetween(line)
+	if len(words) == 1:
+		word = words[0]
+		variables.append(word)
+		print word
+	elif len(words) > 1:
+		for word in words:
+			variables.append(word)
+			print word
+
 f.close()
 
 #GUI
@@ -65,7 +74,7 @@ for variable in range(len(variables)):
 
 
 #Bouton
-bouton=Button(mainWindow, text="Launch", command=moulinette)
+bouton=Button(mainWindow, text="Launch", command=convertFile)
 
 #Main
 pMaster.add(pLabels)
