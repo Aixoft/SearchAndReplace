@@ -55,6 +55,7 @@ f.close()
 
 #GUI
 mainWindow = Tk()
+mainWindow.title("SearchAndReplace")
 
 #Body
 mainWindow.rowconfigure(len(variables), weight=1)
@@ -64,7 +65,7 @@ mainWindow.columnconfigure(3, weight=1)
 i=0
 for variable in range(len(variables)):
 	myLabel = Label(mainWindow, width=20, anchor=CENTER, text=variables[variable].replace("$$",""))
-	myLabel.grid(row=i, column=0, sticky="nsew")
+	myLabel.grid(row=i, column=0, sticky="nsew", pady=5)
 	i+=1
 #Inputs
 i=0
@@ -72,7 +73,7 @@ for variable in range(len(variables)):
 	result = StringVar()
 	results.append(result)
 	myEntry = Entry(mainWindow, width=20, textvariable=result)
-	myEntry.grid(row=i, column=1, sticky="nsew")
+	myEntry.grid(row=i, column=1, sticky="nsew", pady=5)
 	i+=1
 
 #DEBUG
@@ -80,7 +81,7 @@ for variable in range(len(variables)):
 
 #Bouton
 bouton=Button(mainWindow, text="Launch", command=convertFile)
-bouton.grid(row=0, column=2, rowspan=len(variables) ,sticky="nsew")
+bouton.grid(row=0, column=2, rowspan=len(variables) ,sticky="nsew", padx=5, pady=5)
 
 #Main
 mainWindow.mainloop()
