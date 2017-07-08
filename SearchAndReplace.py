@@ -79,7 +79,7 @@ for variable in range(len(variables)):
 #DEBUG
 
 
-#Bouton
+#Button
 bouton=Button(mainWindow, text="Launch", command=convertFile)
 bouton.grid(row=0, column=2, rowspan=len(variables) ,sticky="nsew", padx=5, pady=5)
 
